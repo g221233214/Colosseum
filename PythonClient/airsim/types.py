@@ -503,7 +503,27 @@ class CarControls(MsgpackMixin):
         else:
             self.is_manual_gear = False
             self.manual_gear = -1
-            self.throttle = - abs(throttle_val)
+        self.throttle = - abs(throttle_val)
+
+
+class FixedWingControls(MsgpackMixin):
+    pitch = 0.0
+    roll = 0.0
+    yaw = 0.0
+    throttle = 0.0
+
+    attribute_order = [
+        ('pitch', float),
+        ('roll', float),
+        ('yaw', float),
+        ('throttle', float)
+    ]
+
+    def __init__(self, pitch=0, roll=0, yaw=0, throttle=0):
+        self.pitch = pitch
+        self.roll = roll
+        self.yaw = yaw
+        self.throttle = throttle
 
 
 class KinematicsState(MsgpackMixin):

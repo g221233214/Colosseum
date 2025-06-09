@@ -1,0 +1,25 @@
+{
+  "SettingsVersion": 1.2,
+  "SimMode": "FixedWing",
+  "Vehicles": {
+    "FixedWing1": {
+      "VehicleType": "FixedWing",
+      "AutoCreate": true,
+      "Cameras": {
+        "front_center": {
+          "CaptureSettings": [
+            {"ImageType": 0, "Width": 640, "Height": 480, "FOV_Degrees": 90},
+            {"ImageType": 7, "Width": 640, "Height": 480, "FOV_Degrees": 90}
+          ]
+        }
+      },
+      "Sensors": {
+        "Imu": {"SensorType": 2, "Enabled": true},
+        "Barometer": {"SensorType": 1, "Enabled": true},
+        "Gps": {"SensorType": 3, "Enabled": true},
+        "Magnetometer": {"SensorType": 4, "Enabled": true}
+      }
+    }
+  }
+}
+

@@ -1646,3 +1646,15 @@ class CarClient(VehicleClient, object):
         """
         controls_raw = self.client.call('getCarControls', vehicle_name)
         return CarControls.from_msgpack(controls_raw)
+
+
+#----------------------------------- Fixed Wing APIs --------------------------------------
+class FixedWingClient(VehicleClient, object):
+    def __init__(self, ip = "", port = 41451, timeout_value = 3600):
+        super(FixedWingClient, self).__init__(ip, port, timeout_value)
+
+    def takeoffAsync(self, timeout_sec = 20, vehicle_name = ''):
+        return self.client.call_async('takeoff', timeout_sec, vehicle_name)
+
+    def landAsync(self, timeout_sec = 60, vehicle_name = ''):
+        return self.client.call_async('land', timeout_sec, vehicle_name)

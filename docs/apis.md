@@ -114,6 +114,30 @@ for response in responses:
         airsim.write_file(os.path.normpath('/temp/py1.png'), response.image_data_uint8)
 ```
 
+## Hello Fixed Wing
+Here's how to use Colosseum APIs using Python to control a fixed wing vehicle:
+
+```python
+# ready to run example: PythonClient/fixedwing/hello_fixed_wing.py
+import airsim
+
+# connect to the Colosseum simulator
+client = airsim.FixedWingClient()
+client.confirmConnection()
+client.enableApiControl(True)
+client.takeoffAsync().join()
+
+# set small pitch angle and throttle
+client.setControlSurfaces(airsim.FixedWingControls(pitch=-0.2, throttle=0.6))
+
+# capture images
+responses = client.simGetImages([
+    airsim.ImageRequest("0", airsim.ImageType.Scene),
+    airsim.ImageRequest("0", airsim.ImageType.DepthVis)
+])
+print('Retrieved images:', len(responses))
+```
+
 ## Common APIs
 
 * `reset`: This resets the vehicle to its original starting state. Note that you must call `enableApiControl` and `armDisarm` again after the call to `reset`.
@@ -279,6 +303,13 @@ In most cases, you just don't want yaw to change which you can do by setting yaw
 
 #### lookahead and adaptive_lookahead
 When you ask vehicle to follow a path, Colosseum uses "carrot following" algorithm. This algorithm operates by looking ahead on path and adjusting its velocity vector. The parameters for this algorithm is specified by `lookahead` and `adaptive_lookahead`. For most of the time you want algorithm to auto-decide the values by simply setting `lookahead = -1` and `adaptive_lookahead = 0`.
+
+### APIs for Fixed Wing
+Fixed wing vehicles can be controlled by directly specifying control surface values.
+
+* `setControlSurfaces`: set pitch, roll, yaw and throttle.
+* `getControlSurfaces`: retrieve current control surface values.
+* `takeoffAsync` and `landAsync` are available similar to multirotors.
 
 ## Using APIs on Real Vehicles
 We want to be able to run *same code* that runs in simulation as on real vehicle. This allows you to test your code in simulator and deploy to real vehicle.

@@ -215,6 +215,7 @@ SimMode determines which simulation mode will be used. Below are currently suppo
 - `"Multirotor"`: Use multirotor simulation
 - `"Car"`: Use car simulation
 - `"ComputerVision"`: Use only camera, no vehicle or physics
+- `"FixedWing"`: Use fixed wing simulation
 
 ## ViewMode
 The ViewMode determines which camera to use as default and how camera will follow the vehicle. For multirotors, the default ViewMode is `"FlyWithMe"` while for cars the default ViewMode is `"SpringArmChase"`.
@@ -367,7 +368,7 @@ This element allows specifying cameras which are separate from the cameras attac
 Each simulation mode will go through the list of vehicles specified in this setting and create the ones that has `"AutoCreate": true`. Each vehicle specified in this setting has key which becomes the name of the vehicle. If `"Vehicles"` element is missing then this list is populated with default car named "PhysXCar" and default multirotor named "SimpleFlight".
 
 ### Common Vehicle Setting
-- `VehicleType`: This could be any one of the following - `PhysXCar`, `SimpleFlight`, `PX4Multirotor`, `ComputerVision`, `ArduCopter` & `ArduRover`. There is no default value therefore this element must be specified.
+- `VehicleType`: This could be any one of the following - `PhysXCar`, `SimpleFlight`, `PX4Multirotor`, `ComputerVision`, `ArduCopter`, `ArduRover` & `FixedWing`. There is no default value therefore this element must be specified.
 - `PawnPath`: This allows to override the pawn blueprint to use for the vehicle. For example, you may create new pawn blueprint derived from ACarPawn for a warehouse robot in your own project outside the Colosseum code and then specify its path here. See also [PawnPaths](settings.md#PawnPaths). Note that you have to specify your custom pawn blueprint class path inside the global `PawnPaths` object using your proprietarily defined object name, and quote that name inside the `Vehicles` setting. For example,
 ```json
     {
@@ -499,6 +500,23 @@ PX4 connection. See [Setting up PX4 Software-in-Loop](px4_sitl.md) for an exampl
 ### Using ArduPilot
 
 [ArduPilot](https://ardupilot.org/) Copter & Rover vehicles are supported in latest Colosseum main branch & releases `v1.3.0` and later. For settings and how to use, please see [ArduPilot SITL with Colosseum](https://ardupilot.org/dev/docs/sitl-with-airsim.html)
+
+### Using FixedWing
+
+Below is a minimal example for a fixed wing configuration:
+
+```json
+{
+  "SettingsVersion": 1.2,
+  "SimMode": "FixedWing",
+  "Vehicles": {
+    "FixedWing1": {
+      "VehicleType": "FixedWing",
+      "AutoCreate": true
+    }
+  }
+}
+```
 
 ## Other Settings
 

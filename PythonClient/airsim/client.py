@@ -1658,3 +1658,10 @@ class FixedWingClient(VehicleClient, object):
 
     def landAsync(self, timeout_sec = 60, vehicle_name = ''):
         return self.client.call_async('land', timeout_sec, vehicle_name)
+
+    def setControlSurfaces(self, controls, vehicle_name=''):
+        self.client.call('setControlSurfaces', controls, vehicle_name)
+
+    def getControlSurfaces(self, vehicle_name=''):
+        raw = self.client.call('getControlSurfaces', vehicle_name)
+        return FixedWingControls.from_msgpack(raw)
